@@ -30,6 +30,10 @@ function f_psad {
   sed -i 's/IPT_SYSLOG_FILE             \/var\/log\/messages;/IPT_SYSLOG_FILE             \/var\/log\/syslog;/' "$PSADCONF"
   sed -i 's/SIG_UPDATE_URL              http:\/\/www.cipherdyne.org\/psad\/signatures;/SIG_UPDATE_URL              https:\/\/www.cipherdyne.org\/psad\/signatures;/'  "$PSADCONF"
 
+  for ADMIN in $FW_ADMIN; do
+    echo "$ADMIN    0;" >> "$PSADDL"
+  done
+
   psad --sig-update
   psad -H
   psad --fw-analyze
